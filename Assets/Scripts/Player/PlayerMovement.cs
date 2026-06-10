@@ -2,14 +2,21 @@ using UnityEngine;
 
 namespace Thanks.Player
 {
-    public class PlayerMovement : MonoBehaviour, IMovement
+    public class PlayerMovement : MonoBehaviour, IMovement, IDashable
     {
+        [Header("RequiiredComponents")]
+        [SerializeField] private CharacterController characterController;
+        [SerializeField] private MonoBehaviour fovControllerScript;
+
+        [Space(10)]
         [Header("Movement Settings")]
 
-        [SerializeField] private CharacterController characterController;
-        [SerializeField] private float speed;
-        [SerializeField] private float speedUpTimer;
-        [SerializeField] private float slowDownTimer;
+        [SerializeField, Range(0, 300)] private float fovSprint;
+        [SerializeField, Range(0, 300)] private float fovChangeSpeed;
+        [SerializeField, Min(0)] private float speed;
+        [SerializeField, Min(0)] private float runningSpeed;
+        [SerializeField, Min(0)] private float speedUpTimer;
+        [SerializeField, Min(0)] private float slowDownTimer;
 
         [Space(10)]
         [Header("Jump Settings")]
@@ -23,6 +30,8 @@ namespace Thanks.Player
         [SerializeField] private Transform feetPoint;
         [SerializeField] private LayerMask jumpLayers;
 
+        private IPlayerLookFOV _fov;
+
         private float lastTimeJumped;
         private float lastTimeStopped;
         private float lastTimeMoving;
@@ -32,8 +41,13 @@ namespace Thanks.Player
         private Vector3 curDirection;
 
         private bool jumpedThisFrame = false;
+        private bool isRunning = false;
         private bool isGrounded() => Physics.OverlapSphere(feetPoint.position, feetRadius, jumpLayers).Length != 0;
 
+        private void Start()
+        {
+            _fov = fovControllerScript as IPlayerLookFOV;
+        }
 
         private void Update()
         {
@@ -75,6 +89,20 @@ namespace Thanks.Player
             return false;
         }
 
+        public void SetSprint(bool isSprinting)  
+        {
+            isRunning = isSprinting;
+
+            if (isSprinting)
+            {
+                _fov.ChangeFOV(fovSprint, fovChangeSpeed);
+            }
+            else
+            {
+                _fov.ResetFOV();
+            }
+        }
+
         public void UnpressedJump()
         {
             bodyVelocity.y -= loosePowerAfterRelease;
@@ -105,9 +133,19 @@ namespace Thanks.Player
                 cameraRight.Normalize();
 
                 Vector3 moveDirection = (cameraForward * curDirection.z) + (cameraRight * curDirection.x);
-                Vector3 horizontalVelocity = moveDirection * speed;
+                Vector3 horizontalVelocity = moveDirection * (isRunning ? runningSpeed : speed);
                 bodyVelocity = new Vector3(horizontalVelocity.x, bodyVelocity.y, horizontalVelocity.z);
             }
+        }
+
+
+        public void ApplyDashImpulse(Vector3 impulse)
+        {
+            Vector3 cameraForward = characterController.transform.forward;
+            Vector3 cameraRight = characterController.transform.right;
+            Vector3 moveDirection = (cameraForward * impulse.z) + (cameraRight * impulse.x);
+            bodyVelocity += moveDirection;
+            characterController.Move(bodyVelocity * Time.deltaTime);
         }
     }
 

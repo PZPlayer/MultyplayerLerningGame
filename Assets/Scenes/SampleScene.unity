@@ -209,15 +209,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6574882734343921810, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -2.1228943
+      value: -2.1006777
       objectReference: {fileID: 0}
     - target: {fileID: -6574882734343921810, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0.035869777
+      value: 0.3149206
       objectReference: {fileID: 0}
     - target: {fileID: -6574882734343921810, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 85.08944
+      value: 85.08247
       objectReference: {fileID: 0}
     - target: {fileID: -6487173810328977749, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_Layer
@@ -337,15 +337,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1873722300314729536, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -2.0970457
+      value: -2.1219523
       objectReference: {fileID: 0}
     - target: {fileID: -1873722300314729536, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -0.045182846
+      value: -0.08505297
       objectReference: {fileID: 0}
     - target: {fileID: -1873722300314729536, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -85.09881
+      value: -85.1125
       objectReference: {fileID: 0}
     - target: {fileID: -1311677343013058614, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_Layer
@@ -457,15 +457,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 051182eb82bed9e4cb3be8bf1da69a0e, type: 2}
     - target: {fileID: 6379265584044378490, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 26.207851
+      value: 0.4983597
       objectReference: {fileID: 0}
     - target: {fileID: 6379265584044378490, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 2.627608
+      value: -3.1950412
       objectReference: {fileID: 0}
     - target: {fileID: 6379265584044378490, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 1.1253642
+      value: 0.00002361259
       objectReference: {fileID: 0}
     - target: {fileID: 6574529281785038257, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_Layer
@@ -505,6 +505,9 @@ PrefabInstance:
       addedObject: {fileID: 11765886}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 11765893}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 11765891}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
@@ -514,10 +517,13 @@ PrefabInstance:
       addedObject: {fileID: 11765884}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 11765889}
+      addedObject: {fileID: 11765890}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 11765890}
+      addedObject: {fileID: 11765894}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 11765889}
   m_SourcePrefab: {fileID: 100100000, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
 --- !u!1 &11765882 stripped
 GameObject:
@@ -548,7 +554,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.92, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &11765884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,6 +569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRoot
   movementScript: {fileID: 11765886}
   controllerScript: {fileID: 11765885}
+  dashScript: {fileID: 11765894}
 --- !u!114 &11765885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,7 +595,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Thanks.Player.PlayerMovement
   characterController: {fileID: 11765883}
-  speed: 5
+  fovControllerScript: {fileID: 11765890}
+  fovSprint: 70
+  fovChangeSpeed: 70.1
+  speed: 7
+  runningSpeed: 10
   speedUpTimer: 0.5
   slowDownTimer: 0.5
   jumpForce: 10
@@ -653,9 +664,9 @@ MonoBehaviour:
   playerCamera: {fileID: 1646714386}
   pitchMin: -80
   pitchMax: 80
-  defaultFOV: 90
-  aimFOV: 60
-  fovChangeSpeed: 90
+  defaultFOV: 60
+  aimFOV: 40
+  fovChangeSpeed: 70
 --- !u!114 &11765891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,8 +679,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9831889fa677d4947a195a979dd67987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLookInput
-  sensitivity: 20
+  sensitivity: 35
   invertY: 1
+--- !u!114 &11765893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11765882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd3e03de86f4f1438a98d2ac1ab6836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Thanks.Player.PlayerCursorController
+--- !u!114 &11765894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11765882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb38c5f633985364a98ecb167a236138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Thanks.Player.PlayerDash
+  dashForce: 20
+  dashDuration: 0.2
+  dashCooldown: 1
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,11 +1122,11 @@ Terrain:
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
   m_ReceiveGI: 1
-  m_ScaleInLightmap: 0.0256
+  m_ScaleInLightmap: 1
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
   m_RenderingLayerMask: 1
-  m_AllowAutoConnect: 1
+  m_AllowAutoConnect: 0
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3

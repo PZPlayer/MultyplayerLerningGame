@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerLook : MonoBehaviour
+public class PlayerLook : MonoBehaviour, IPlayerLookFOV
 {
     [Header("—сылки на трансформы")]
     [SerializeField] private Transform playerYawRoot;   // мгновенный поворот по Y (тело/направление игрока)

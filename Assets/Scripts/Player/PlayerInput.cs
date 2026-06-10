@@ -18,6 +18,8 @@ namespace Thanks.Player
 
         public event Action<bool> JumpButton;
 
+        public event Action DashButton;
+
         public event Action<bool> SprintButton;
 
         public Vector2 Move() => direction;
@@ -38,6 +40,11 @@ namespace Thanks.Player
         {
             interactSecond = value.isPressed;
             InteractSecondButton?.Invoke(interactSecond);
+        }
+
+        private void OnDash(InputValue value)
+        {
+            DashButton?.Invoke();
         }
 
         private void OnJump(InputValue value)
