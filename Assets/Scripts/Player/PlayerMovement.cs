@@ -1,9 +1,14 @@
+using System;
 using UnityEngine;
 
 namespace Thanks.Player
 {
     public class PlayerMovement : MonoBehaviour, IMovement, IDashable
     {
+        public event Action<float> OnMove;
+        public event Action OnJump;
+        public event Action OnDash;
+
         [Header("RequiiredComponents")]
         [SerializeField] private CharacterController characterController;
         [SerializeField] private MonoBehaviour fovControllerScript;
@@ -42,7 +47,7 @@ namespace Thanks.Player
 
         private bool jumpedThisFrame = false;
         private bool isRunning = false;
-        private bool isGrounded() => Physics.OverlapSphere(feetPoint.position, feetRadius, jumpLayers).Length != 0;
+        public bool isGrounded() => Physics.OverlapSphere(feetPoint.position, feetRadius, jumpLayers).Length != 0;
 
         private void Start()
         {
@@ -75,10 +80,11 @@ namespace Thanks.Player
             bodyVelocity.y -= gravityValue * Time.deltaTime;
         }
 
-        public bool Jump()
+        bool IMovement.Jump()
         {
             if (!jumpedThisFrame && (isGrounded() || Time.time - lastTimeGround < booferJumpTimer) && Time.time - lastTimeJumped > coolDownBetweenJumps)
             {
+                OnJump?.Invoke();
                 lastTimeGround = 0;
                 jumpedThisFrame = true;
                 lastTimeJumped = Time.time;
@@ -89,7 +95,7 @@ namespace Thanks.Player
             return false;
         }
 
-        public void SetSprint(bool isSprinting)  
+        void IMovement.SetSprint(bool isSprinting)  
         {
             isRunning = isSprinting;
 
@@ -103,12 +109,12 @@ namespace Thanks.Player
             }
         }
 
-        public void UnpressedJump()
+        void IMovement.UnpressedJump()
         {
             bodyVelocity.y -= loosePowerAfterRelease;
         }
 
-        public void MoveTo(Vector3 direction)
+        void IMovement.MoveTo(Vector3 direction)
         {
             if (direction == Vector3.zero)
             {
@@ -134,13 +140,19 @@ namespace Thanks.Player
 
                 Vector3 moveDirection = (cameraForward * curDirection.z) + (cameraRight * curDirection.x);
                 Vector3 horizontalVelocity = moveDirection * (isRunning ? runningSpeed : speed);
+                OnMove?.Invoke(isRunning ? runningSpeed : speed);
                 bodyVelocity = new Vector3(horizontalVelocity.x, bodyVelocity.y, horizontalVelocity.z);
+            }
+            else
+            {
+                OnMove?.Invoke(bodyVelocity.x + bodyVelocity.z);
             }
         }
 
 
         public void ApplyDashImpulse(Vector3 impulse)
         {
+            OnDash?.Invoke();
             Vector3 cameraForward = characterController.transform.forward;
             Vector3 cameraRight = characterController.transform.right;
             Vector3 moveDirection = (cameraForward * impulse.z) + (cameraRight * impulse.x);

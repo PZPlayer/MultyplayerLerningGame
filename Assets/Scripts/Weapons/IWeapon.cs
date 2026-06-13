@@ -1,16 +1,30 @@
 using UnityEngine;
+using System;
 
-public class IWeapon : MonoBehaviour
+public interface IShootable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    void Shoot();
+    void StopShooting();
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public interface IAimable
+{
+    void Aim();
+    void StopAiming();
+}
+
+public interface IReloadble
+{
+    void Reload();
+}
+
+public interface IBaseWeapon: IShootable, IReloadble, IAimable
+{
+
+}
+
+public interface IWeaponHandler
+{
+    public event Action<bool> OnShootStart;
+    public event Action<bool> OnAimStart;
 }

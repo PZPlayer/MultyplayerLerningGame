@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Thanks.Player
 {
+    [DefaultExecutionOrder(-50)]
     public class PlayerInput : MonoBehaviour, IControllable
     {
         private bool interactFirst;
@@ -36,7 +37,7 @@ namespace Thanks.Player
             InteractFirstButton?.Invoke(interactFirst);
         }
 
-        private void OnRight(InputValue value)
+        private void OnSecond(InputValue value)
         {
             interactSecond = value.isPressed;
             InteractSecondButton?.Invoke(interactSecond);
