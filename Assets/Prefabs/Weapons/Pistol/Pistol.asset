@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weapon: {fileID: 6660621264731213370, guid: 428ccbb694b8a0946b55610f15fcaf7d, type: 3}
   Damage: 50
-  ShootBetweenSpeed: 5
-  ReloadTime: 5
-  Ammo: 5
+  ShootBetweenTime: 0.5
+  ReloadTime: 2
+  Ammo: 8
   Walk: {fileID: 0}
   Run: {fileID: 0}
   Shoot: {fileID: 0}

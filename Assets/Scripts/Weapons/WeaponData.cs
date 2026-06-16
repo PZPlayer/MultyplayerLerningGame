@@ -8,7 +8,7 @@ public class WeaponData : ScriptableObject
 
     [Header("Stats")]
     public float Damage;
-    public float ShootBetweenSpeed;
+    public float ShootBetweenTime;
     public float ReloadTime;
     public int Ammo;
 

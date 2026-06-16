@@ -1,7 +1,8 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerLookInput : MonoBehaviour, IPlayerLookInput
+public class PlayerLookInput : NetworkBehaviour, IPlayerLookInput
 {
     [SerializeField] private float sensitivity = 1f;
     [SerializeField] private bool invertY = false;
@@ -16,6 +17,12 @@ public class PlayerLookInput : MonoBehaviour, IPlayerLookInput
     {
         playerInput = GetComponent<PlayerInput>();
         lookAction = playerInput.actions["Look"]; // действие "Look" должно быть в Input Action Asset
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        if (!isLocalPlayer)
+            this.enabled = false;
     }
 
     private void OnEnable() => Enable();

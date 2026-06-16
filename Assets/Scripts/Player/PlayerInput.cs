@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,7 +6,7 @@ using UnityEngine.InputSystem;
 namespace Thanks.Player
 {
     [DefaultExecutionOrder(-50)]
-    public class PlayerInput : MonoBehaviour, IControllable
+    public class PlayerInput : NetworkBehaviour, IControllable
     {
         private bool interactFirst;
         private bool interactSecond;
@@ -25,6 +26,11 @@ namespace Thanks.Player
 
         public Vector2 Move() => direction;
 
+        public override void OnStartLocalPlayer()
+        {
+            if (!isLocalPlayer)
+                this.enabled = false;
+        }
 
         private void OnMove(InputValue value)
         {

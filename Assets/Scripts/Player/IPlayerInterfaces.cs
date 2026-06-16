@@ -39,6 +39,30 @@ public interface IMovement
     void UnpressedJump();
 }
 
+public interface ICameraEffects
+{
+    /// <summary>
+    /// Сместить камеру (punch) на заданный угол с постоянной скоростью (град/сек).
+    /// После достижения цели камера остаётся в новом положении (без возврата).
+    /// </summary>
+    /// <param name="delta">Смещение (x = yaw, y = pitch) в градусах</param>
+    /// <param name="speed">Скорость смещения (град/сек)</param>
+    void Punch(Vector2 delta, float speed);
+
+    /// <summary>
+    /// Начать тряску камеры с заданной интенсивностью и длительностью.
+    /// </summary>
+    /// <param name="intensity">Максимальное отклонение в градусах</param>
+    /// <param name="duration">Длительность тряски (сек)</param>
+    /// <param name="decay">Коэффициент затухания (0-1, 1 = без затухания)</param>
+    void Shake(float intensity, float duration, float decay = 0.9f);
+
+    /// <summary>
+    /// Остановить все эффекты (punch и shake) мгновенно.
+    /// </summary>
+    void StopAll();
+}
+
 public interface IDashable
 {
     void ApplyDashImpulse(Vector3 impulse);

@@ -32,6 +32,9 @@ namespace Thanks.Player
 
         private void Update()
         {
+            if (!controllerScript.enabled)
+                this.enabled = false;
+
             direction = new Vector3(_controller.Move().x, 0, _controller.Move().y);
             _movement.MoveTo(direction);
         }
