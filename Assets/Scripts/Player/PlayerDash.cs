@@ -4,7 +4,7 @@ using System.Collections;
 namespace Thanks.Player
 {
     [RequireComponent(typeof(PlayerMovement))]
-    public class PlayerDash : MonoBehaviour, IDashInput
+    public class PlayerDash : MonoBehaviour, IDashInput, IBoostrapble
     {
         [Header("Dash Settings")]
         [SerializeField] private float dashForce = 20f;          // сила рывка
@@ -15,7 +15,7 @@ namespace Thanks.Player
         private float lastDashTime;
         private bool isDashing;
 
-        private void Awake()
+        void IBoostrapble.BoostrapAwake()
         {
             movement = GetComponent<IDashable>();
             if (movement == null)

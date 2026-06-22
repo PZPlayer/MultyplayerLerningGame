@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Thanks.Player
 {
-    public class PlayerRoot : MonoBehaviour
+    public class PlayerRoot : MonoBehaviour, IBoostrapble
     {
         [SerializeField] private MonoBehaviour movementScript;
         [SerializeField] private MonoBehaviour controllerScript;
@@ -17,7 +17,7 @@ namespace Thanks.Player
         private bool ifFirstWasPressed;
         private Vector3 direction;
 
-        private void Start()
+        void IBoostrapble.BoostrapAwake()
         {
             _controller = controllerScript as IControllable;
             _movement = movementScript as IMovement;
@@ -32,8 +32,6 @@ namespace Thanks.Player
 
         private void Update()
         {
-            if (!controllerScript.enabled)
-                this.enabled = false;
 
             direction = new Vector3(_controller.Move().x, 0, _controller.Move().y);
             _movement.MoveTo(direction);

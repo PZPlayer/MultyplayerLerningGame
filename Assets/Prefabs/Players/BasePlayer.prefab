@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6150153831913164119
 Transform:
   m_ObjectHideFlags: 0
@@ -83,7 +83,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -98,7 +98,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -146,11 +146,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
+  m_VolumeFrameworkUpdateModeOption: 0
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
-  m_StopNaN: 0
+  m_StopNaN: 1
   m_Dithering: 0
   m_ClearDepth: 1
   m_AllowXRRendering: 1
@@ -573,9 +573,6 @@ PrefabInstance:
       addedObject: {fileID: 5605582662900929398}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8799431823667440026}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6887140316316706503}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
@@ -594,10 +591,16 @@ PrefabInstance:
       addedObject: {fileID: 4267529268418810333}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 286867772281775765}
+      addedObject: {fileID: -9163588252527970367}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7056850911919062042}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1954953608762514963}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7898939016400468523}
   m_SourcePrefab: {fileID: 100100000, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
 --- !u!4 &3489152486530704552 stripped
 Transform:
@@ -656,6 +659,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f613f31aa982be8459ba4b164c3a4b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Thanks.Player.PlayerMovement
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   characterController: {fileID: 6240976956275245574}
   fovControllerScript: {fileID: 5825246507252320278}
   fovSprint: 70
@@ -686,20 +692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd3e03de86f4f1438a98d2ac1ab6836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Thanks.Player.PlayerCursorController
---- !u!114 &8799431823667440026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7769582972019948743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9831889fa677d4947a195a979dd67987, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLookInput
-  sensitivity: 35
-  invertY: 1
 --- !u!114 &6887140316316706503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,6 +704,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43abe1e7a5acd0d4289f39fd63f3abef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  sensitivity: 30
+  invertY: 1
 --- !u!114 &6645591724539358098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,6 +736,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1a4be7497243641a405df0034c6778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLook
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   playerYawRoot: {fileID: 6960535466489439869}
   cameraPivot: {fileID: 6150153831913164119}
   playerCamera: {fileID: 5192784104937665091}
@@ -759,6 +759,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23e93cc584146a4a8d8c2835c9df76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationsManager
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _animator: {fileID: 3925141012307098631}
   _movement: {fileID: 2189355936875352166}
 --- !u!114 &7178758637599668776
@@ -773,6 +776,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2f26b723823d448a97a08622a2cc11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponHandler
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _currentWeapon: {fileID: 0}
   _startWeapon: {fileID: 11400000, guid: 91cd8e57904c7f64f85a45da11c0b583, type: 2}
   _weaponSpawnPoint: {fileID: 3489152486530704552}
@@ -794,7 +800,7 @@ MonoBehaviour:
   dashForce: 20
   dashDuration: 0.2
   dashCooldown: 1
---- !u!114 &286867772281775765
+--- !u!114 &-9163588252527970367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -803,27 +809,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 7769582972019948743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: dc226c8838cf1424dabeea3783fd3a2c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: 
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 5192784104937665091}
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBoostrap
+  boostrapbleSricpt:
+  - {fileID: 6887140316316706503}
+  - {fileID: 5825246507252320278}
+  - {fileID: 2189355936875352166}
+  - {fileID: 6645591724539358098}
+  - {fileID: 5605582662900929398}
+  - {fileID: 7178758637599668776}
+  - {fileID: 3054961210734310636}
+  - {fileID: 4267529268418810333}
+  getFromParent: 0
 --- !u!114 &7056850911919062042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,3 +839,54 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &1954953608762514963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769582972019948743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkTransformUnreliable
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0.019
+  target: {fileID: 6960535466489439869}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 1
+  timelineOffset: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  bufferResetMultiplier: 3
+  useFixedUpdate: 1
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+--- !u!114 &-7898939016400468523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769582972019948743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkAnimator
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  animator: {fileID: 3925141012307098631}

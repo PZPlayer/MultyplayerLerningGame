@@ -68,6 +68,11 @@ public interface IDashable
     void ApplyDashImpulse(Vector3 impulse);
 }
 
+public interface IBoostrapble
+{
+    void BoostrapAwake();
+}
+
 public interface IDashInput
 {
     void PerformDash(Vector3 direction);
@@ -76,8 +81,12 @@ public interface IDashInput
 public interface IPlayerLookInput
 {
     Vector2 LookDelta { get; }
-    void Enable();
-    void Disable();
+}
+
+public interface ICursorInfo
+{
+    bool IsLocked { get; }
+    bool IsVisible { get; }
 }
 
 public interface IPlayerLookFOV
@@ -98,4 +107,28 @@ public interface IPlayerLookFOV
     /// Сбрасывает FOV
     /// </summary>
     void ResetFOV();
+}
+
+public interface IKeyCaller
+{
+    void OnMove(Vector2 value);
+
+    void OnAttack(bool value);
+
+    void OnSecond(bool value);
+
+    void OnDash(bool value);
+
+    void OnJump(bool value);
+
+    void OnSprint(bool value);
+}
+
+public interface IDamageable
+{
+       /// <summary>
+    /// Получить урон
+    /// </summary>
+    /// <param name="damage">Количество урона</param>
+    void TakeDamage(float damage);
 }

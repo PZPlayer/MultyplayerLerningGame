@@ -5,64 +5,110 @@ using UnityEngine.InputSystem;
 
 namespace Thanks.Player
 {
-    [DefaultExecutionOrder(-50)]
-    public class PlayerInput : NetworkBehaviour, IControllable
+    public class PlayerInput : NetworkBehaviour, IControllable, IPlayerLookInput, IBoostrapble
     {
+        public event Action<bool> InteractFirstButton;
+        public event Action<bool> InteractSecondButton;
+        public event Action<bool> JumpButton;
+        public event Action DashButton;
+        public event Action<bool> SprintButton;
+        public Vector2 LookDelta => lookDelta;
+        public Vector2 Move() => direction;
+
+        [SerializeField] private float sensitivity = 1f;
+        [SerializeField] private bool invertY = false;
+
+        private InputSystem_Actions inputActions;
+        private Vector2 lookDelta;
         private bool interactFirst;
         private bool interactSecond;
         private bool jump;
         private bool sprint;
         private Vector2 direction;
 
-        public event Action<bool> InteractFirstButton;
+        void IBoostrapble.BoostrapAwake()
+        {
+            inputActions = new InputSystem_Actions();
+            inputActions.Enable();
 
-        public event Action<bool> InteractSecondButton;
+            inputActions.Player.Attack.started += OnAttackPerform;
+            inputActions.Player.Attack.canceled += OnAttackPerform;
+            inputActions.Player.Second.started += OnSecond;
+            inputActions.Player.Second.canceled += OnSecond;
+            inputActions.Player.Dash.started += OnDash;
+            inputActions.Player.Dash.canceled += OnDash;
+            inputActions.Player.Jump.started += OnJump;
+            inputActions.Player.Jump.canceled += OnJump;
+            inputActions.Player.Sprint.started += OnSprint;
+            inputActions.Player.Sprint.canceled += OnSprint;
+        }
 
-        public event Action<bool> JumpButton;
+        private void OnDestroy()
+        {
+            inputActions.Player.Attack.started -= OnAttackPerform;
+            inputActions.Player.Attack.canceled -= OnAttackPerform;
+            inputActions.Player.Second.started -= OnSecond;
+            inputActions.Player.Second.canceled -= OnSecond;
+            inputActions.Player.Dash.started -= OnDash;
+            inputActions.Player.Dash.canceled -= OnDash;
+            inputActions.Player.Jump.started -= OnJump;
+            inputActions.Player.Jump.canceled -= OnJump;
+            inputActions.Player.Sprint.started -= OnSprint;
+            inputActions.Player.Sprint.canceled -= OnSprint;
 
-        public event Action DashButton;
+            inputActions.Disable();
+        }
 
-        public event Action<bool> SprintButton;
-
-        public Vector2 Move() => direction;
-
-        public override void OnStartLocalPlayer()
+        private void Update()
         {
             if (!isLocalPlayer)
-                this.enabled = false;
+                return;
+
+            lookDelta = new Vector2(inputActions.Player.Look.ReadValue<Vector2>().x, inputActions.Player.Look.ReadValue<Vector2>().y * (invertY ? -1 : 1)) * sensitivity ;
+            direction = inputActions.Player.Move.ReadValue<Vector2>();
         }
 
-        private void OnMove(InputValue value)
+        private void OnAttackPerform(InputAction.CallbackContext context)
         {
-            direction = value.Get<Vector2>();
-        }
+            if (!isLocalPlayer)
+                return;
 
-        private void OnAttack(InputValue value)
-        {
-            interactFirst = value.isPressed;
+            interactFirst = context.started;
             InteractFirstButton?.Invoke(interactFirst);
         }
 
-        private void OnSecond(InputValue value)
+        private void OnSecond(InputAction.CallbackContext context)
         {
-            interactSecond = value.isPressed;
+            if (!isLocalPlayer)
+                return;
+
+            interactSecond = context.started;
             InteractSecondButton?.Invoke(interactSecond);
         }
 
-        private void OnDash(InputValue value)
+        private void OnDash(InputAction.CallbackContext context)
         {
+            if (!isLocalPlayer)
+                return;
+
             DashButton?.Invoke();
         }
 
-        private void OnJump(InputValue value)
+        private void OnJump(InputAction.CallbackContext context)
         {
-            jump = value.isPressed;
+            if (!isLocalPlayer)
+                return;
+
+            jump = context.started;
             JumpButton?.Invoke(jump);
         }
 
-        private void OnSprint(InputValue value)
+        private void OnSprint(InputAction.CallbackContext context)
         {
-            sprint = value.isPressed;
+            if (!isLocalPlayer)
+                return;
+
+            sprint = context.started;
             SprintButton?.Invoke(sprint);
         }
     }

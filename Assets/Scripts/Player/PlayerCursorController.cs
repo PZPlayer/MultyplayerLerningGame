@@ -2,11 +2,25 @@ using UnityEngine;
 
 namespace Thanks.Player
 {
-    public class PlayerCursorController : MonoBehaviour
+    public class PlayerCursorController : MonoBehaviour, ICursorInfo, IBoostrapble
     {
-        private void Start()
+
+        void IBoostrapble.BoostrapAwake()
         {
             LockAndHide();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                UnlockAndShow();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                LockAndHide();
+            }
         }
 
         /// <summary>

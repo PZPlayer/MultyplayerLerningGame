@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Mirror;
 
-public class PlayerLook : NetworkBehaviour, IPlayerLookFOV, ICameraEffects
+public class PlayerLook : NetworkBehaviour, IPlayerLookFOV, ICameraEffects, IBoostrapble
 {
     [Header("Ссылки на трансформы")]
     [SerializeField] private Transform playerYawRoot;
@@ -29,22 +29,31 @@ public class PlayerLook : NetworkBehaviour, IPlayerLookFOV, ICameraEffects
     private Vector2 activePunchOffset;  // текущее смещение от Punch (плавно меняется)
     private Vector2 shakeOffset;        // смещение от тряски
     private Coroutine shakeCoroutine;
+    private ICursorInfo cursorInfo;
 
-    private void OnEnable()
+    public override void OnStartAuthority()
     {
-        lookInput?.Enable(); lookInput = GetComponent<IPlayerLookInput>();
+        playerCamera.gameObject.SetActive(true);
+        cursorInfo = GetComponent<ICursorInfo>();
     }
-    private void OnDisable() => lookInput?.Disable();
+
+    void IBoostrapble.BoostrapAwake()
+    {
+        lookInput = GetComponent<IPlayerLookInput>();
+    }
 
     private void Update()
     {
-        if (lookInput == null) return;
+        HandlePitch(activePunchOffset.y * Time.deltaTime + shakeOffset.y * Time.deltaTime);
+        HandleYaw(activePunchOffset.x * Time.deltaTime + shakeOffset.x * Time.deltaTime);
+
+        if (lookInput == null || !isLocalPlayer || cursorInfo.IsLocked == false) return;
 
         Vector2 lookDelta = lookInput.LookDelta * Time.deltaTime;
 
         // Суммируем мышь, активный Punch и тряску
-        float totalPitchDelta = lookDelta.y + activePunchOffset.y * Time.deltaTime + shakeOffset.y * Time.deltaTime;
-        float totalYawDelta = lookDelta.x + activePunchOffset.x * Time.deltaTime + shakeOffset.x * Time.deltaTime;
+        float totalPitchDelta = lookDelta.y;
+        float totalYawDelta = lookDelta.x;
 
         HandlePitch(totalPitchDelta);
         HandleYaw(totalYawDelta);
@@ -52,14 +61,11 @@ public class PlayerLook : NetworkBehaviour, IPlayerLookFOV, ICameraEffects
 
     public override void OnStartLocalPlayer()
     {
-        print("IAMLOCAL " + isLocalPlayer);
-
         if (!isLocalPlayer)
         {
             playerCamera.gameObject.SetActive(false);
-            this.enabled = false; 
+            this.enabled = false;
         }
-
     }
 
     private void HandlePitch(float deltaPitch)
@@ -77,6 +83,7 @@ public class PlayerLook : NetworkBehaviour, IPlayerLookFOV, ICameraEffects
     // ==================== ICameraEffects ====================
     public void Punch(Vector2 delta, float speed)
     {
+
         if (punchCoroutine != null)
             StopCoroutine(punchCoroutine);
         punchCoroutine = StartCoroutine(PunchCoroutine(delta, speed));
@@ -84,6 +91,7 @@ public class PlayerLook : NetworkBehaviour, IPlayerLookFOV, ICameraEffects
 
     private IEnumerator PunchCoroutine(Vector2 delta, float speed)
     {
+
         Vector2 start = activePunchOffset;
         Vector2 target = start + delta;
         float elapsed = 0f;

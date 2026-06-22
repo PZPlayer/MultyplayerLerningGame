@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Thanks.Player
 {
-    public class CameraEffectsController : MonoBehaviour, ICameraEffects
+    public class CameraEffectsController : MonoBehaviour, ICameraEffects, IBoostrapble
     {
         [SerializeField] private Transform effectsPivot; // дочерний объект к CameraPivot
 
@@ -23,7 +23,7 @@ namespace Thanks.Player
         // Текущее базовое смещение (результат Punch'а)
         private Vector2 currentBaseOffset;
 
-        private void Start()
+        void IBoostrapble.BoostrapAwake()
         {
             if (effectsPivot == null)
                 Debug.LogError("CameraEffectsController: effectsPivot не назначен!");
